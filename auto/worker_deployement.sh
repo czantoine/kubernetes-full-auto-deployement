@@ -51,3 +51,5 @@ sudo apt install kubeadm -y
 token=$(cat token.txt)
 sudo $token
 token=nada
+
+echo "Finished !"
