@@ -46,7 +46,7 @@ sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 
 echo "Installing Kubernetes..."
 sudo apt install kubeadm -y ## verifier le -y
-sudo kubeadm init --apiserver-advertise-address=192.168.56.30 --pod-network-cidr=10.0.2.15/16
+sudo kubeadm init --apiserver-advertise-address=192.168.56.30 --pod-network-cidr=$PUBLIC_IP_ADDRESS/16
 sudo sleep 10
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
