@@ -59,9 +59,10 @@ echo "Kubernetes Installation finished..."
 echo "Waiting 30 seconds for the cluster running..."
 sudo sleep 30
 
-
 echo "Testing Kubernetes namespaces... "
 kubectl get pods --all-namespaces
 echo "Testing Kubernetes nodes... "
 kubectl get nodes
+kubectl create namespace k8s-webapp
+echo "Namespaces k8s-webapp created..."
 echo "Finished !"
