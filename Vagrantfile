@@ -1,5 +1,5 @@
 Vagrant.configure("2") do |config|
-        config.vm.provision :shell, path: "scripts/ss.sh"
+        config.vm.provision :shell, path: "scripts/conf.sh"
         config.vm.boot_timeout = 1000
 	config.vm.define "master" do |master|
 		master.vm.box = "bento/ubuntu-20.04"
