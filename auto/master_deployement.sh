@@ -63,14 +63,12 @@ echo "Testing Kubernetes namespaces... "
 kubectl get pods --all-namespaces
 echo "Testing Kubernetes nodes... "
 kubectl get nodes
+
+sudo kubeadm token create --print-join-command > /vagrant/token
+echo "Token deployed..."
+
+# Deployement k8s
 kubectl create namespace k8s-webapp
 echo "Namespaces k8s-webapp created..."
-
-# Setup ssh
-sudo apt-get install sshpass
-token=$(kubeadm token create --print-join-command)
-sshpass -p vagrant ssh worker1 "echo $token > token.txt"
-sshpass -p vagrant ssh worker2 "echo $token > token.txt"
-token=nada
 
 echo "Finished !"

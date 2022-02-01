@@ -47,9 +47,4 @@ sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 echo "Installing Kubernetes..."
 sudo apt install kubeadm -y
 
-# Join master
-token=$(cat token.txt)
-sudo $token
-token=nada
-
 echo "Finished !"
