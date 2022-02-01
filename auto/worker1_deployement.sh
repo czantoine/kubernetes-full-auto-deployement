@@ -47,4 +47,7 @@ sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 echo "Installing Kubernetes..."
 sudo apt install kubeadm -y
 
+token=$(cat /vagrant/token)
+sudo $token
+
 echo "Finished !"
