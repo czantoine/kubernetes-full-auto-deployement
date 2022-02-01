@@ -1,7 +1,7 @@
 Vagrant.configure("2") do |config|
         config.vm.provision :shell, path: "scripts/conf.sh"
         config.vm.boot_timeout = 1000
-	config.vm.define "master" do |master|
+        config.vm.define "master" do |master|
 		master.vm.box = "bento/ubuntu-20.04"
 		master.vm.hostname= "master"
 		master.vm.network "private_network", ip: "192.168.56.30"
@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
                end
                master.vm.provision :shell, path: "auto/master_deployement.sh" 
 	end
-	config.vm.define "worker1" do |worker1|
+        config.vm.define "worker1" do |worker1|
 		worker1.vm.box = "bento/ubuntu-20.04"
 		worker1.vm.hostname= "worker1"
 		worker1.vm.network "private_network", ip: "192.168.56.31"
@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
 			v.name = "worker1"
 			v.gui = true
 		end
-	        worker1.vm.provision :shell, path: "auto/worker_deployement.sh"
+	        worker1.vm.provision :shell, path: "auto/worker1_deployement.sh"
 	end
 	config.vm.define "worker2" do |worker2|
 		worker2.vm.box = "bento/ubuntu-20.04"
@@ -35,8 +35,6 @@ Vagrant.configure("2") do |config|
 			v.name = "worker2"
 			v.gui = true
 		end
-		worker2.vm.provision :shell, path: "auto/worker_deployement.sh"
+		worker2.vm.provision :shell, path: "auto/worker2_deployement.sh"
 	end
 end
-
-
