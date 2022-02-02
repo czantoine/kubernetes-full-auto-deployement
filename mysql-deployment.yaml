@@ -1,12 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment 
+kind: Deployment
 metadata:
   name: mysql
-  namespace: k8s-database
 spec:
   selector:
     matchLabels:
-      app: mysql 
+      app: mysql
   strategy:
     type: Recreate
   template:
@@ -17,13 +16,15 @@ spec:
       containers:
       - image: mysql:5.6
         name: mysql
-        env: 
-
-        #use secret instance in real case
+        env:
         - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
         ports:
         - containerPort: 3306
-          name: mysql 
+          name: mysql
         volumeMounts:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
@@ -31,8 +32,13 @@ spec:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
           claimName: mysql-pv-claim
-          
- #sudo kubectl create -f mysql-deployment.yaml 
-# output deployment.apps/mysql created
-  
-          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: mysql
