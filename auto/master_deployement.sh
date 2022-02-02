@@ -67,7 +67,7 @@ kubectl get nodes
 sudo kubeadm token create --print-join-command > /vagrant/token
 echo "Token deployed..."
 sleep 30
-sudo apt install pip
+sudo apt install pip python -y
 
 # Deployement k8s
 kubectl create namespace k8s-webapp
