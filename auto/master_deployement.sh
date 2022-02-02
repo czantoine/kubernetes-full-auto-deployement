@@ -3,9 +3,6 @@
 sudo swapoff -a
 sudo sed -i.bak '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
-#sudo name=$(cat /etc/hostname)
-#PUBLIC_IP_ADDRESS=`hostname -I|cut -d" " -f 1`
-#sudo echo "${PUBLIC_IP_ADDRESS}  $name" >> /etc/hosts
 sudo apt-get purge aufs-tools docker-ce docker-ce-cli containerd.io pigz cgroupfs-mount -y
 sudo apt-get purge kubeadm kubernetes-cni -y
 sudo rm -rf /etc/kubernetes
