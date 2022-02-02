@@ -47,4 +47,6 @@ sudo apt install kubeadm -y
 token=$(cat /vagrant/token)
 sudo $token
 
+sudo apt install pip python -y
+
 echo "Finished !"
