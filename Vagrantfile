@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
 			v.name = "worker1"
 			v.gui = true
 		end
-	        worker1.vm.provision :shell, path: "auto/worker1_deployement.sh"
+	        worker1.vm.provision :shell, path: "auto/worker_deployement.sh"
 	end
 	config.vm.define "worker2" do |worker2|
 		worker2.vm.box = "bento/ubuntu-20.04"
@@ -35,6 +35,6 @@ Vagrant.configure("2") do |config|
 			v.name = "worker2"
 			v.gui = true
 		end
-		worker2.vm.provision :shell, path: "auto/worker2_deployement.sh"
+		worker2.vm.provision :shell, path: "auto/worker_deployement.sh"
 	end
 end
