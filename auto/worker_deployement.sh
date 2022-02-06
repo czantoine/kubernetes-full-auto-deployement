@@ -51,7 +51,6 @@ sudo $token
 
 sudo apt install pip python -y
 
-
 # Docker mysql + flask 
 mkdir app 
 wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/app/Dockerfile -P app/
@@ -61,6 +60,7 @@ wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployemen
 mkdir db
 wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/db/init.sql -P db/
 
+wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/docker-compose.yml
 sudo docker-compose up -d
 
 echo "Finished !"
