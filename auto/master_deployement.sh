@@ -75,17 +75,16 @@ sudo apt install pip python -y
 kubectl create namespace k8s-webapp
 echo "Namespaces k8s-webapp created..."
 
-wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/secret.yaml
-wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/mysql-service.yml
-wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/mysql-deployment.yaml
+# Database only k8S mysql 
+#wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/secret.yaml
+#wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/mysql-service.yml
+#wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/mysql-deployment.yaml
 
-sudo kubectl apply -f secret.yaml
-sudo kubectl apply -f mysql-deployment.yaml
-sleep 5
-sudo kubectl apply -f mysql-service.yaml
-sleep 15
-
-
+#sudo kubectl apply -f secret.yaml
+#sudo kubectl apply -f mysql-deployment.yaml
+#sleep 5
+#sudo kubectl apply -f mysql-service.yaml
+#sleep 15
 
 
 echo "Finished !"
