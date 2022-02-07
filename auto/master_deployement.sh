@@ -46,8 +46,18 @@ sudo apt-get install apt-transport-https curl -y
 sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add 
 sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 
+# Install minikube
+wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 
+sudo cp minikube-linux-amd64 /usr/local/bin/minikube
+sudo chmod 755 /usr/local/bin/minikube
+
+# Install K8s
 echo "Installing Kubernetes..."
 sudo apt install kubeadm -y
+
+# Start minikube
+sudo minikube start --driver=none
+
 sudo kubeadm init --apiserver-advertise-address=192.168.56.30 --pod-network-cidr=10.244.0.0/16
 sudo sleep 10
 mkdir -p $HOME/.kube
@@ -71,20 +81,41 @@ echo "Token deployed..."
 sleep 30
 sudo apt install pip python -y
 
-# Deployement k8s
-kubectl create namespace k8s-webapp
-echo "Namespaces k8s-webapp created..."
+# Deployment 
+wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/Dockerfile 
+wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/flaskapi.py
+wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/secrets.yml
+wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/mysql-pv.yml
+wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/mysql-deployment.yml
+wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/flaskapp-deployment.yml
+wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/requirements.txt
+wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/db.sql
 
-# Database only k8S mysql 
-#wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/secret.yaml
-#wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/mysql-service.yml
-#wget https://raw.githubusercontent.com/czantoine/kubernetes-full-auto-deployement/main/mysql-deployment.yaml
+sudo docker pull mysql
+sudo docker build . -t flask-api
 
-#sudo kubectl apply -f secret.yaml
-#sudo kubectl apply -f mysql-deployment.yaml
-#sleep 5
-#sudo kubectl apply -f mysql-service.yaml
-#sleep 15
+sudo kubectl apply -f secrets.yml
+sudo kubectl apply -f mysql-pv.yml
+sudo kubectl apply -f mysql-deployment.yml
+sudo kubectl apply -f flaskapp-deployment.yml
+
+sleep 30
+
+pod=$(sudo kubectl get pods | grep mysql | sed 's/\s.*$//')
+sudo kubectl exec $pod -i -- /bin/bash -c 'mysql -u root -proot -e "CREATE DATABASE flaskapi"'
+sudo kubectl exec $pod -i -- mysql -u root -proot flaskapi < db.sql
+
+sudo kubectl get service
+
+#sudo kubectl run -it --rm --image=mysql --restart=Never mysql-client -- mysql --host mysql --password=
+
+
+# CREATE TABLE pokemon(pokemon_id INT PRIMARY KEY AUTO_INCREMENT, pokemon_name VARCHAR(255), pokemon_name_en VARCHAR(255), pokemon_number VARCHAR(255));
+
+
+# curl -H "Content-Type: application/json" -d '{"name": "pikachu", "name_en": "pikachu", "number": "23"}' 192.168.56.30:30204/create
+# curl -H "Content-Type: application/json" 192.168.56.30:30204/delete/2
+# curl -H "Content-Type: application/json" -d {"name": "bonjour", "name_en": "hellzzo", "number": "23", "pokemon_id": "1"} 192.168.56.30:30204/update
 
 
 echo "Finished !"
