@@ -78,7 +78,7 @@ def update_pokemon():
     name = json["name"]
     name_en = json["name_en"]
     number = json["number"]
-    user_id = json["user_id"]
+    user_id = json["pokemon_id"]
     if name and name_en and number and pokemon_id and request.method == "POST":
         sql = "UPDATE pokemon SET pokemon_name=%s, pokemon_name_en=%s, " \
               "pokemon_number=%s WHERE pokemon_id=%s"
