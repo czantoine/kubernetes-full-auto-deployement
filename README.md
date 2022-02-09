@@ -11,5 +11,4 @@ git clone https://github.com/czantoine/kubernetes-full-auto-deployement.git
 
 cd kubernetes-full-auto-deployement
 
-
-Execute " vagrant up " and go get a coffee
+Execute " vagrant up " and go get a cup of coffee
