@@ -99,7 +99,7 @@ sudo kubectl apply -f mysql-pv.yml
 sudo kubectl apply -f mysql-deployment.yml
 sudo kubectl apply -f flaskapp-deployment.yml
 
-sleep 30
+sleep 60
 
 pod=$(sudo kubectl get pods | grep mysql | sed 's/\s.*$//')
 sudo kubectl exec $pod -i -- /bin/bash -c 'mysql -u root -proot -e "CREATE DATABASE flaskapi"'
@@ -109,13 +109,6 @@ sudo kubectl get service
 
 #sudo kubectl run -it --rm --image=mysql --restart=Never mysql-client -- mysql --host mysql --password=
 
-
 # CREATE TABLE pokemon(pokemon_id INT PRIMARY KEY AUTO_INCREMENT, pokemon_name VARCHAR(255), pokemon_name_en VARCHAR(255), pokemon_number VARCHAR(255));
-
-
-# curl -H "Content-Type: application/json" -d '{"name": "pikachu", "name_en": "pikachu", "number": "23"}' 192.168.56.30:30204/create
-# curl -H "Content-Type: application/json" 192.168.56.30:30204/delete/2
-# curl -H "Content-Type: application/json" -d {"name": "bonjour", "name_en": "hellzzo", "number": "23", "pokemon_id": "1"} 192.168.56.30:30204/update
-
 
 echo "Finished !"
